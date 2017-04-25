@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 
+#include "input.h"
 #include "ship.h"
 
 struct player_t {
     SDL_Rect location;
+    struct input_t* input;
     struct ship_t* ship;
 };
 
@@ -25,6 +27,10 @@ int main(int argc, char* argv[])
 
     player.ship = (struct ship_t*)malloc(sizeof(struct ship_t));
     ship_init(player.ship, rend, SHIP_STANDARD);
+
+    player.input = (struct input_t*)malloc(sizeof(struct input_t));
+    input_init(player.input);
+
     player.location.w = FRANTIC_SHIP_WIDTH;
     player.location.h = FRANTIC_SHIP_HEIGHT;
     player.location.x = 10;
@@ -33,9 +39,21 @@ int main(int argc, char* argv[])
     running = 1;
     while (running) {
         while (SDL_PollEvent(&ev)) {
-            if (ev.type == SDL_QUIT) {
-                running = 0;
+            if (!input_update(player.input, &ev)) {
+                if (ev.type == SDL_QUIT) {
+                    running = 0;
+                }
             }
+        }
+
+        if (input_poll(player.input, INPUT_UP)) {
+            player.location.y--;
+        } else if (input_poll(player.input, INPUT_DOWN)) {
+            player.location.y++;
+        } else if (input_poll(player.input, INPUT_LEFT)) {
+            player.location.x--;
+        } else if (input_poll(player.input, INPUT_RIGHT)) {
+            player.location.x++;
         }
 
         SDL_RenderClear(rend);
