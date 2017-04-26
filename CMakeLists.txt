@@ -8,6 +8,7 @@ include_directories("${SDL2_INCLUDE_DIRS}")
 link_directories("${SDL2_LIBRARY_DIRS}")
 
 add_executable(frantic
+    src/engine.c
     src/input.c
     src/main.c
     src/ship.c
