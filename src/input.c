@@ -14,6 +14,8 @@ int input_init(struct input_t* input)
         return -1;
     }
 
+    memset(&input->toggled, 0, sizeof(unsigned) * _input_e_len_);
+
     /*
     * I'll have an input mapping that is configured here eventually.
     */
@@ -33,6 +35,8 @@ int input_update(struct input_t* input, SDL_Event* ev)
     switch (ev->type) {
     case SDL_KEYUP:
         pressed = 0;
+        val = ev->key.keysym.sym;
+        break;
     case SDL_KEYDOWN:
         pressed = 1;
         val = ev->key.keysym.sym;
@@ -40,12 +44,9 @@ int input_update(struct input_t* input, SDL_Event* ev)
     case SDL_JOYAXISMOTION:
     case SDL_JOYHATMOTION:
     case SDL_JOYBUTTONUP:
-        /* pressed = 0; */
     case SDL_JOYBUTTONDOWN:
-        /* pressed = 1; */
         fprintf(stdout, "INFO: input_update: Joysticks not supported.\n");
     default:
-        fprintf(stdout, "INFO: input_update: Did not consume SDL_Event\n");
         return 0;
     }
 
@@ -67,7 +68,8 @@ int input_update(struct input_t* input, SDL_Event* ev)
         fprintf(stdout, "INFO: input_update: right was ");
         break;
     default:
-        fprintf(stdout, "INFO: input_update: unrecognized input was ");
+        fprintf(stdout, "INFO: unrecognized keyboard input.\n");
+        return 0;
     }
 
     if (pressed) {

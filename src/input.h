@@ -9,6 +9,7 @@ enum input_e {
     INPUT_LEFT,
     INPUT_RIGHT,
     INPUT_PAUSE,
+    INPUT_SHOOT,
     _input_e_len_
 };
 
