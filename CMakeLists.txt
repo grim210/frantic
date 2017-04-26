@@ -11,6 +11,7 @@ add_executable(frantic
     src/input.c
     src/main.c
     src/ship.c
+    src/timer.c
 )
 
 target_link_libraries(frantic ${SDL2_LIBRARIES})
