@@ -67,6 +67,10 @@ int input_update(struct input_t* input, SDL_Event* ev)
         in = INPUT_RIGHT;
         fprintf(stdout, "INFO: input_update: right was ");
         break;
+    case SDLK_SPACE:
+        in = INPUT_SHOOT;
+        fprintf(stdout, "INFO: input_update: shoot was ");
+        break;
     default:
         fprintf(stdout, "INFO: unrecognized keyboard input.\n");
         return 0;

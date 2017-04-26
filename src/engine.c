@@ -108,4 +108,8 @@ void _engine_update(struct engine_t* engine)
     if (input_poll(&engine->input, INPUT_RIGHT)) {
         engine->player.position.x += delta * FRANTIC_SHIP_SPEED_LATERAL;
     }
+
+    if (input_poll(&engine->input, INPUT_SHOOT)) {
+        fprintf(stdout, "INFO: _engine_update: shoot at %f!\n", elapsed);
+    }
 }

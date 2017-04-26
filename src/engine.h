@@ -1,17 +1,10 @@
 #ifndef FRANTIC_ENGINE_H
 #define FRANTIC_ENGINE_H
 
+#include "ftypes.h"
 #include "input.h"
 #include "ship.h"
 #include "timer.h"
-
-/*
-* An SDL_Rect, but more accurate.  Easier to use with floating point math.
-*/
-struct frect_t {
-    float x, y;
-    float w, h;
-};
 
 /* Not yet complicated enough to split off from the engine code. */
 struct player_t {
